@@ -3,6 +3,7 @@ import { Mail, MapPin, Phone } from "lucide-react";
 import { COMPANY } from "@/lib/company";
 import { DEVS } from "@/lib/developments";
 import { InstagramIcon } from "./instagram-icon";
+import { Logo } from "./logo";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -11,8 +12,8 @@ export function Footer() {
       <div className="exen-container">
         <div className="footer__top">
           <div>
-            <span className="wm">{COMPANY.name}</span>
-            <div className="tl">{COMPANY.tagline}</div>
+            <Logo className="footer__logo" height={64} />
+            <div className="tl" style={{ marginTop: "0.9rem" }}>{COMPANY.tagline}</div>
             <p className="about">
               Firma de comercialización y desarrollo inmobiliario en Saltillo y
               Arteaga, Coahuila.

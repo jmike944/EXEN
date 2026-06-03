@@ -191,6 +191,100 @@
   );
 }
 
+/* ---------- DARK MODE — overrides the warm light palette ---------- */
+.dark {
+  --c-bg: #0a1726;
+  --c-bg-soft: #122842;
+  --c-bg-panel: #1d3a5c;
+  --c-card: #1a3656;
+  --c-ink: #eef3fa;
+  --c-muted: #a3b6cc;
+  --c-faint: #7d8c9d;
+  --c-line: rgba(234, 240, 246, 0.14);
+  --c-line-soft: rgba(234, 240, 246, 0.07);
+  --c-accent: #d4b27a;
+  --c-accent-ink: #0c1b2b;
+  --c-on-navy: #eaf0f6;
+  --c-on-navy-mut: #9fb2c6;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.25);
+  --shadow: 0 16px 40px -22px rgba(0, 0, 0, 0.5),
+    0 6px 12px -8px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 30px 60px -24px rgba(0, 0, 0, 0.6),
+    0 12px 24px -16px rgba(0, 0, 0, 0.4);
+}
+/* Headings default to navy (legible on light bg); on dark, lift to ink. */
+.dark h1,
+.dark h2,
+.dark h3,
+.dark h4 {
+  color: var(--c-ink);
+}
+/* Same goes for stat-number / time-value text that defaults to navy. */
+.dark .facts-bar .n,
+.dark .dist-list .d .time {
+  color: var(--c-ink);
+}
+/* Dev card category tag keeps its light pill background — darken its text. */
+.dark .dev-card__tag {
+  background: rgba(238, 243, 250, 0.95);
+  color: #0c1b2b;
+}
+/* Section bands need a touch of contrast against the dark page */
+.dark .exen-section--soft {
+  background: var(--c-bg-soft);
+}
+.dark .exen-section--navy {
+  background: #122a44;
+}
+/* The dark hero overlay can be slightly softer (page is already dark) */
+.dark .hero__overlay {
+  background: linear-gradient(
+    180deg,
+    rgba(12, 27, 43, 0.45) 0%,
+    rgba(12, 27, 43, 0.35) 38%,
+    rgba(12, 27, 43, 0.85) 100%
+  );
+}
+/* Footer is intentionally near-black even in dark mode */
+.dark .footer {
+  background: #06121e;
+}
+/* In dark mode, the nav logo should stay white when the nav goes solid too */
+.dark .nav.is-solid .nav__logo {
+  filter: brightness(0) invert(1);
+}
+.dark .nav.is-solid {
+  background: var(--c-bg);
+  border-bottom-color: var(--c-line);
+}
+.dark .nav.is-solid .nav__brand .wm {
+  color: #fff;
+}
+.dark .nav.is-solid .nav__brand .tl {
+  color: var(--c-on-navy-mut);
+}
+.dark .nav.is-solid .nav__links a {
+  color: var(--c-ink);
+}
+.dark .nav.is-solid .btn--light {
+  background: var(--c-accent);
+  color: var(--c-accent-ink);
+}
+/* Form input contrast on dark form-card */
+.dark .field input,
+.dark .field select,
+.dark .field textarea {
+  background: var(--c-bg);
+  color: var(--c-ink);
+  border-color: var(--c-line);
+}
+.dark .field.has-error input,
+.dark .field.has-error select,
+.dark .field.has-error textarea {
+  background: rgba(209, 73, 91, 0.12);
+  border-color: #d1495b;
+}
+
 /* ---------- Corner styles (client default = sharp) ---------- */
 :root,
 [data-corners="sharp"] {
@@ -451,6 +545,7 @@
   border-bottom: 1px solid transparent;
 }
 .nav__inner {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 2rem;
@@ -460,7 +555,6 @@
   display: flex;
   flex-direction: column;
   line-height: 1;
-  margin-right: auto;
 }
 .nav__brand .wm {
   font-family: var(--font-head);
@@ -478,10 +572,22 @@
   margin-top: 5px;
   font-weight: 500;
 }
+.nav__logo {
+  display: block;
+  filter: brightness(0) invert(1);
+  transition: filter 0.35s ease;
+}
+.nav.is-solid .nav__logo {
+  filter: none;
+}
 .nav__links {
   display: flex;
   align-items: center;
   gap: 2rem;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 .nav__links a {
   font-size: 0.9rem;
@@ -511,6 +617,54 @@
   display: flex;
   align-items: center;
   gap: 0.8rem;
+  margin-left: auto;
+}
+/* ---------- Theme segmented control (in floating cluster) ---------- */
+.theme-seg {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--c-line);
+  background: var(--c-card);
+  box-shadow: var(--shadow);
+}
+.theme-seg__btn {
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: var(--c-muted);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.theme-seg__btn svg {
+  width: 14px;
+  height: 14px;
+}
+.theme-seg__btn:hover {
+  color: var(--c-navy);
+}
+.theme-seg__btn.is-active {
+  background: var(--c-navy);
+  color: #fff;
+}
+.theme-seg__btn:focus-visible {
+  outline: 2px solid var(--c-accent);
+  outline-offset: 2px;
+}
+.dark .theme-seg__btn:hover {
+  color: var(--c-ink);
+}
+.dark .theme-seg__btn.is-active {
+  background: var(--c-accent);
+  color: var(--c-accent-ink);
 }
 .nav__burger {
   display: none;
@@ -724,6 +878,7 @@
   overflow: hidden;
   border-radius: var(--radius);
   min-height: 320px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -794,8 +949,8 @@
    ============================================================ */
 .dev-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: clamp(18px, 2.2vw, 32px);
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(16px, 1.8vw, 24px);
 }
 .dev-card {
   background: var(--c-card);
@@ -805,6 +960,7 @@
   box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
+  height: 100%;
   transition: transform 0.25s ease, box-shadow 0.25s ease,
     border-color 0.25s;
 }
@@ -991,6 +1147,13 @@
   background: var(--c-card);
   border: 1px solid var(--c-line-soft);
   transition: 0.25s;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.value-card p {
+  margin-top: auto;
+  padding-top: 0.55rem;
 }
 .exen-section--navy .value-card {
   background: rgba(255, 255, 255, 0.05);
@@ -1363,54 +1526,17 @@
 }
 
 /* ============================================================
-   WHATSAPP FLOAT
+   FLOATING ACTIONS (theme selector)
    ============================================================ */
-.wa-float {
+.floating-actions {
   position: fixed;
   right: clamp(16px, 3vw, 30px);
   bottom: clamp(16px, 3vw, 30px);
   z-index: 70;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: #25d366;
-  color: #fff;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 14px 30px -8px rgba(37, 211, 102, 0.6);
-  transition: transform 0.2s ease;
-}
-.wa-float:hover {
-  transform: scale(1.08);
-}
-.wa-float svg {
-  width: 32px;
-  height: 32px;
-}
-.wa-float::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  border: 2px solid #25d366;
-  animation: waPulse 2.2s ease-out infinite;
-}
-@keyframes waPulse {
-  0% {
-    transform: scale(1);
-    opacity: 0.7;
-  }
-  100% {
-    transform: scale(1.7);
-    opacity: 0;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .wa-float::after {
-    animation: none;
-    display: none;
-  }
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
 }
 
 /* ============================================================
@@ -1433,6 +1559,13 @@
   letter-spacing: 0.26em;
   color: #fff;
   padding-left: 0.26em;
+}
+.footer__logo {
+  display: block;
+  filter: brightness(0) invert(1);
+}
+.drawer__logo {
+  display: block;
 }
 .footer .tl {
   font-size: 0.6rem;
@@ -1675,9 +1808,11 @@
    RESPONSIVE
    ============================================================ */
 @media (max-width: 1024px) {
-  .cat-grid,
-  .dev-grid {
+  .cat-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+  .dev-grid {
+    grid-template-columns: repeat(3, 1fr);
   }
   .value-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -1693,6 +1828,11 @@
     gap: 32px;
   }
   .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 800px) {
+  .dev-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }

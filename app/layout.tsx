@@ -4,7 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/exen/theme-provider";
 import { Nav } from "@/components/exen/nav";
 import { Footer } from "@/components/exen/footer";
-import { WhatsAppFloat } from "@/components/exen/whatsapp-float";
+import { FloatingActions } from "@/components/exen/floating-actions";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -35,6 +35,7 @@ export default function RootLayout({
     <html
       lang="es"
       suppressHydrationWarning
+      data-theme="warm"
       data-corners="sharp"
       className={`${poppins.variable} ${cormorant.variable}`}
     >
@@ -43,7 +44,7 @@ export default function RootLayout({
           <Nav />
           {children}
           <Footer />
-          <WhatsAppFloat />
+          <FloatingActions />
         </ThemeProvider>
       </body>
     </html>
