@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { X } from "lucide-react";
 import { COMPANY, waLink, WA_DEFAULT_MESSAGE } from "@/lib/company";
+import { Logo } from "./logo";
 import { ScheduleDialog } from "./schedule-dialog";
 
 type NavLink = { href: string; label: string };
@@ -50,9 +51,8 @@ export function Nav() {
     <>
       <header className={`nav${solid ? " is-solid" : ""}`}>
         <div className="exen-container nav__inner">
-          <Link className="nav__brand" href="/">
-            <span className="wm">{COMPANY.name}</span>
-            <span className="tl">{COMPANY.tagline}</span>
+          <Link className="nav__brand" href="/" aria-label={`${COMPANY.name} — Inicio`}>
+            <Logo className="nav__logo" height={28} priority variant="wordmark" />
           </Link>
           <nav className="nav__links" aria-label="Principal">
             {links.map((l) => (
@@ -97,7 +97,7 @@ export function Nav() {
             >
               <X size={24} />
             </button>
-            <span className="wm">{COMPANY.name}</span>
+            <Logo className="drawer__logo" height={48} />
             {links.map((l) => (
               <Link
                 key={l.href}
