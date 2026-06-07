@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Check } from "lucide-react";
-import { DEVS } from "@/lib/developments";
+import { DEV_OPTIONS } from "@/lib/dev-options";
 import { waLink, waDevMessage, WA_DEFAULT_MESSAGE } from "@/lib/company";
 import { submitLead } from "@/app/actions/lead";
 import { WhatsAppIcon } from "./whatsapp-icon";
@@ -49,7 +49,7 @@ export function LeadForm({ preselectDev, source = "home" }: Props) {
       if (first) setFocus(first);
       return;
     }
-    const devObj = DEVS.find((d) => d.slug === values.dev);
+    const devObj = DEV_OPTIONS.find((d) => d.slug === values.dev);
     const waHref = waLink(devObj ? waDevMessage(devObj.name) : WA_DEFAULT_MESSAGE);
     setSuccess({ name: values.name.split(" ")[0] ?? "", waHref });
   };
@@ -117,7 +117,7 @@ export function LeadForm({ preselectDev, source = "home" }: Props) {
         <label>Desarrollo de interés</label>
         <select {...register("dev")}>
           <option value="">— Selecciona —</option>
-          {DEVS.map((d) => (
+          {DEV_OPTIONS.map((d) => (
             <option key={d.slug} value={d.slug}>
               {d.name}
             </option>

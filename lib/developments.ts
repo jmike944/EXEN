@@ -1,4 +1,5 @@
 import type { CategoryKey } from "./categories";
+import { DEV_OPTIONS } from "./dev-options";
 
 export type AmenityKey =
   | "lake"
@@ -321,6 +322,17 @@ export const DEVS: Dev[] = [
     gallery: ["/photos/fuentes-de-arteaga-1.jpg"],
   },
 ];
+
+// Guard against DEV_OPTIONS drifting from DEVS. Runs only on the server
+// (this module is no longer imported by client components).
+if (
+  DEV_OPTIONS.length !== DEVS.length ||
+  DEV_OPTIONS.some((o, i) => o.slug !== DEVS[i].slug || o.name !== DEVS[i].name)
+) {
+  throw new Error(
+    "DEV_OPTIONS in lib/dev-options.ts is out of sync with DEVS in lib/developments.ts"
+  );
+}
 
 export const DEV_BY_SLUG: Record<string, Dev> = Object.fromEntries(
   DEVS.map((d) => [d.slug, d])

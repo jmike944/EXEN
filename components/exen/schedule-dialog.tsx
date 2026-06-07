@@ -14,7 +14,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { DEVS } from "@/lib/developments";
+import { DEV_OPTIONS } from "@/lib/dev-options";
 import { waLink } from "@/lib/company";
 import { submitSchedule } from "@/app/actions/lead";
 import { WhatsAppIcon } from "./whatsapp-icon";
@@ -53,14 +53,14 @@ export function ScheduleDialog({
     formState: { errors, isSubmitting },
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
-    defaultValues: { dev: preselectDev ?? DEVS[0].slug, date: "" },
+    defaultValues: { dev: preselectDev ?? DEV_OPTIONS[0].slug, date: "" },
   });
 
   const onSubmit = async (values: FormValues) => {
     const res = await submitSchedule({ ...values, time: slot });
     if (!res.ok) return;
     const devName =
-      DEVS.find((d) => d.slug === values.dev)?.name ??
+      DEV_OPTIONS.find((d) => d.slug === values.dev)?.name ??
       "uno de los desarrollos";
     const first = values.name.split(" ")[0] ?? "";
     const wa = waLink(
@@ -133,7 +133,7 @@ export function ScheduleDialog({
                 <div className="field">
                   <label>Desarrollo</label>
                   <select {...register("dev")}>
-                    {DEVS.map((d) => (
+                    {DEV_OPTIONS.map((d) => (
                       <option key={d.slug} value={d.slug}>
                         {d.name}
                       </option>

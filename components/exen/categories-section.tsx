@@ -3,11 +3,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { CATEGORIES, CATEGORY_ORDER } from "@/lib/categories";
-import { categoryCounts } from "@/lib/developments";
 import { Reveal } from "./reveal";
 
-export function CategoriesSection() {
-  const counts = categoryCounts();
+export function CategoriesSection({
+  counts,
+}: {
+  counts: Record<string, number>;
+}) {
   return (
     <section className="exen-section" id="categorias">
       <div className="exen-container">

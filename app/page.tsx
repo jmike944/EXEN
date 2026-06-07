@@ -13,7 +13,7 @@ import {
   Car,
   Trees,
 } from "lucide-react";
-import { DEVS } from "@/lib/developments";
+import { DEVS, categoryCounts } from "@/lib/developments";
 import { COMPANY, waLink, WA_DEFAULT_MESSAGE } from "@/lib/company";
 import { Reveal } from "@/components/exen/reveal";
 import { CategoriesSection } from "@/components/exen/categories-section";
@@ -109,7 +109,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <CategoriesSection />
+      <CategoriesSection counts={categoryCounts()} />
 
       <DevelopmentsSection devs={DEVS} />
 
