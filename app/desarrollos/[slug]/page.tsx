@@ -238,7 +238,7 @@ export default async function DevPage(
               className="gallery"
               style={{ marginTop: "clamp(28px,3.5vw,48px)" }}
             >
-              {dev.gallery.slice(0, 6).map((src, i) => {
+              {dev.gallery.map((src, i) => {
                 const cls = ["gallery__slot"];
                 if (i === 0) cls.push("g-wide", "g-tall");
                 if (i === 3) cls.push("g-wide");

@@ -230,7 +230,7 @@ export default function HomePage() {
                 <span className="ico">
                   <Car />
                 </span>
-                <span className="place">El Tunal · zona campestre</span>
+                <span className="place">Los Lirios · zona campestre</span>
                 <span className="time">32 min</span>
               </div>
             </div>

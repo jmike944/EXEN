@@ -230,7 +230,7 @@ export const DEVS: Dev[] = [
     name: "Privada Bosque Sur",
     cat: "residencial",
     status: "En venta",
-    tagline: "Desarrollo residencial",
+    tagline: "Servicios incluidos",
     location: "Saltillo, Coahuila",
     short:
       "Desarrollo residencial con áreas verdes y servicios incluidos, en zona de crecimiento al sur de Saltillo.",
