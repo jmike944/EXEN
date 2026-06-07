@@ -7,10 +7,10 @@ export const COMPANY = {
   wa: "528445888866",
   region: "Saltillo · Arteaga, Coahuila",
   socials: [
-    "@tera_desarrollos",
     "@topdesarrollos",
     "@sagondesarrollos",
     "@pezadesarrollos",
+    "@pezainmobiliaria",
     "@privada.bosquesur",
     "@ronsesvalles.campestre",
   ],

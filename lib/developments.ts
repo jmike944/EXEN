@@ -1,4 +1,5 @@
 import type { CategoryKey } from "./categories";
+import { DEV_OPTIONS } from "./dev-options";
 
 export type AmenityKey =
   | "lake"
@@ -51,20 +52,20 @@ export const DEVS: Dev[] = [
     cat: "campestre",
     status: "En venta",
     tagline: "Lotes campestres frente al lago",
-    location: "El Tunal, Coahuila",
+    location: "Los Lirios, Coahuila",
     short:
       "Fraccionamiento residencial de lotes campestres con lago artificial y casa club, rodeado de naturaleza.",
     overview: [
-      "Ronsesvalles es un fraccionamiento residencial de lotes campestres ubicado en El Tunal, Coahuila — un refugio natural pensado para construir la casa de campo de tu familia y disfrutar de fines de semana al aire libre.",
-      "Con 45 lotes desde 2,000 m², amplias áreas verdes y amenidades diseñadas para la convivencia, Ronsesvalles ofrece el equilibrio perfecto entre privacidad, naturaleza y cercanía a la ciudad.",
+      "Ronsesvalles es un fraccionamiento residencial de lotes campestres ubicado en Los Lirios, Coahuila — un refugio natural pensado para construir la casa de campo de tu familia y disfrutar de fines de semana al aire libre.",
+      "Con 38 lotes desde 2,000 m², amplias áreas verdes y amenidades diseñadas para la convivencia, Ronsesvalles ofrece el equilibrio perfecto entre privacidad, naturaleza y cercanía a la ciudad.",
     ],
     facts: [
-      { n: "45", l: "Lotes disponibles" },
+      { n: "38", l: "Lotes disponibles" },
       { n: "2,000 m²", l: "Superficie desde" },
       { n: "32 min", l: "desde Arteaga" },
       { n: "40 min", l: "desde Saltillo" },
     ],
-    cardFacts: ["45 lotes", "Desde 2,000 m²", "Casa club"],
+    cardFacts: ["38 lotes", "Desde 2,000 m²", "Casa club"],
     amenities: [
       { i: "lake", t: "Lago artificial" },
       { i: "clubhouse", t: "Casa club" },
@@ -78,18 +79,19 @@ export const DEVS: Dev[] = [
     distances: [
       { p: "Arteaga, Coah.", t: "32 min" },
       { p: "Saltillo, Coah.", t: "40 min" },
-      { p: "El Tunal (centro)", t: "8 min" },
+      { p: "Los Lirios (centro)", t: "8 min" },
     ],
-    map: "El Tunal, Arteaga, Coahuila",
+    map: "Los Lirios, Arteaga, Coahuila",
     ig: "@ronsesvalles.campestre",
-    image: "/photos/ronsesvalles-hero.jpg",
+    image: "/photos/ronsesvalles-hero-v2.png",
     gallery: [
-      "/photos/ronsesvalles-1.jpg",
-      "/photos/ronsesvalles-2.jpg",
-      "/photos/ronsesvalles-3.jpg",
       "/photos/ronsesvalles-4.jpg",
       "/photos/ronsesvalles-5.jpg",
       "/photos/ronsesvalles-6.png",
+      "/photos/ronsesvalles-new-01.png",
+      "/photos/ronsesvalles-new-02.png",
+      "/photos/ronsesvalles-new-03.png",
+      "/photos/ronsesvalles-new-04.png",
     ],
   },
   {
@@ -123,11 +125,11 @@ export const DEVS: Dev[] = [
       { i: "dog", t: "Pet friendly" },
     ],
     distances: [
-      { p: "Centro de Saltillo", t: "a solicitud" },
-      { p: "Arteaga, Coah.", t: "a solicitud" },
+      { p: "Norte de Saltillo", t: "a solicitud" },
+      { p: "Ubicación Privilegiada", t: "a solicitud" },
     ],
     map: "Saltillo, Coahuila",
-    ig: "@topdesarrollos",
+    ig: "@sagondesarrollos",
     image: "/photos/aura-place-hero.png",
     gallery: [
       "/photos/aura-place-1.png",
@@ -141,15 +143,15 @@ export const DEVS: Dev[] = [
     name: "Hacienda El Milagro",
     cat: "residencial",
     status: "En venta",
-    tagline: "Terrenos residenciales",
+    tagline: "Terrenos y casas residenciales",
     location: "Arteaga, Coahuila",
     short:
-      "Terrenos residenciales en una de las zonas de mayor crecimiento y plusvalía de Arteaga.",
+      "Terrenos y casas residenciales en una de las zonas de mayor crecimiento y plusvalía de Arteaga.",
     overview: [
-      "Hacienda El Milagro ofrece terrenos residenciales en Arteaga, Coahuila, una zona consolidada con servicios, accesos y plusvalía comprobada — ideal para construir tu hogar o invertir a largo plazo.",
+      "Hacienda El Milagro ofrece terrenos y casas residenciales en Arteaga, Coahuila, una zona consolidada con servicios, accesos y plusvalía comprobada — ideal para construir tu hogar o invertir a largo plazo.",
     ],
     facts: null,
-    cardFacts: ["Terrenos", "Plusvalía", "Arteaga"],
+    cardFacts: ["Terrenos y casas", "Plusvalía", "Arteaga"],
     amenities: [
       { i: "gate", t: "Acceso controlado" },
       { i: "road", t: "Calles urbanizadas" },
@@ -163,12 +165,31 @@ export const DEVS: Dev[] = [
       { p: "Saltillo, Coah.", t: "a solicitud" },
     ],
     map: "Arteaga, Coahuila",
-    ig: "@sagondesarrollos",
-    image: "/photos/hacienda-el-milagro-hero.jpg",
+    ig: "@topdesarrollos",
+    image: "/photos/hacienda-el-milagro-hero.png",
     gallery: [
-      "/photos/hacienda-el-milagro-1.jpg",
-      "/photos/hacienda-el-milagro-2.jpg",
-      "/photos/hacienda-el-milagro-3.jpg",
+      "/photos/hacienda-el-milagro-new-02.png",
+      "/photos/hacienda-el-milagro-new-03.png",
+      "/photos/hacienda-el-milagro-new-04.png",
+      "/photos/hacienda-el-milagro-new-05.png",
+      "/photos/hacienda-el-milagro-new-06.png",
+      "/photos/hacienda-el-milagro-new-07.png",
+      "/photos/hacienda-el-milagro-new-08.png",
+      "/photos/hacienda-el-milagro-new-09.png",
+      "/photos/hacienda-el-milagro-new-10.png",
+      "/photos/hacienda-el-milagro-new-11.png",
+      "/photos/hacienda-el-milagro-new-12.png",
+      "/photos/hacienda-el-milagro-new-13.jpg",
+      "/photos/hacienda-el-milagro-new-14.jpg",
+      "/photos/hacienda-el-milagro-new-15.jpg",
+      "/photos/hacienda-el-milagro-new-16.jpg",
+      "/photos/hacienda-el-milagro-new-17.jpg",
+      "/photos/hacienda-el-milagro-new-18.jpg",
+      "/photos/hacienda-el-milagro-new-19.jpg",
+      "/photos/hacienda-el-milagro-new-20.jpg",
+      "/photos/hacienda-el-milagro-new-21.jpg",
+      "/photos/hacienda-el-milagro-new-22.jpg",
+      "/photos/hacienda-el-milagro-new-23.png",
     ],
   },
   {
@@ -210,21 +231,21 @@ export const DEVS: Dev[] = [
     name: "Privada Bosque Sur",
     cat: "residencial",
     status: "En venta",
-    tagline: "Privada residencial",
+    tagline: "Servicios incluidos",
     location: "Saltillo, Coahuila",
     short:
-      "Privada residencial cerrada con seguridad y áreas verdes, en zona de crecimiento al sur de Saltillo.",
+      "Desarrollo residencial con áreas verdes y servicios incluidos, en zona de crecimiento al sur de Saltillo.",
     overview: [
-      "Privada Bosque Sur es un desarrollo residencial cerrado que combina seguridad, comunidad y áreas verdes. Una opción ideal para familias que buscan tranquilidad y plusvalía en el sur de Saltillo.",
+      "Privada Bosque Sur es un desarrollo residencial que combina comunidad, áreas verdes y servicios incluidos. Una opción ideal para familias que buscan tranquilidad y plusvalía en el sur de Saltillo.",
     ],
     facts: null,
-    cardFacts: ["Privada cerrada", "Seguridad 24/7", "Saltillo"],
+    cardFacts: ["Servicios incluidos", "Terrenos", "Saltillo"],
     amenities: [
-      { i: "gate", t: "Acceso controlado 24/7" },
-      { i: "shield", t: "Privada cerrada" },
+      { i: "gate", t: "Acceso controlado" },
       { i: "garden", t: "Áreas verdes" },
       { i: "playground", t: "Juegos infantiles" },
       { i: "road", t: "Vialidades internas" },
+      { i: "bolt", t: "Servicios incluidos" },
       { i: "trend", t: "Plusvalía" },
     ],
     distances: [{ p: "Saltillo (centro)", t: "a solicitud" }],
@@ -261,7 +282,7 @@ export const DEVS: Dev[] = [
     ],
     distances: [{ p: "Saltillo (centro)", t: "a solicitud" }],
     map: "Saltillo, Coahuila",
-    ig: "@tera_desarrollos",
+    ig: "@pezainmobiliaria",
     image: "/photos/la-joya-residencial-hero.jpg",
     gallery: [
       "/photos/la-joya-residencial-1.jpg",
@@ -296,11 +317,22 @@ export const DEVS: Dev[] = [
       { p: "Saltillo, Coah.", t: "a solicitud" },
     ],
     map: "Arteaga, Coahuila",
-    ig: "@topdesarrollos",
-    image: "/photos/fuentes-de-arteaga-hero.jpg",
+    ig: "@pezainmobiliaria",
+    image: "/photos/fuentes-de-arteaga-hero.png",
     gallery: ["/photos/fuentes-de-arteaga-1.jpg"],
   },
 ];
+
+// Guard against DEV_OPTIONS drifting from DEVS. Runs only on the server
+// (this module is no longer imported by client components).
+if (
+  DEV_OPTIONS.length !== DEVS.length ||
+  DEV_OPTIONS.some((o, i) => o.slug !== DEVS[i].slug || o.name !== DEVS[i].name)
+) {
+  throw new Error(
+    "DEV_OPTIONS in lib/dev-options.ts is out of sync with DEVS in lib/developments.ts"
+  );
+}
 
 export const DEV_BY_SLUG: Record<string, Dev> = Object.fromEntries(
   DEVS.map((d) => [d.slug, d])
