@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowRight, MapPin } from "lucide-react";
 import type { Dev } from "@/lib/developments";
 import { CATEGORIES } from "@/lib/categories";
-import { waLink, waDevMessage } from "@/lib/company";
+import { waLinkForDev, waDevMessage } from "@/lib/company";
 import { WhatsAppIcon } from "./whatsapp-icon";
 
 export function DevCard({ dev }: { dev: Dev }) {
@@ -39,7 +39,7 @@ export function DevCard({ dev }: { dev: Dev }) {
           </Link>
           <a
             className="dev-card__wa"
-            href={waLink(waDevMessage(dev.name))}
+            href={waLinkForDev(dev.slug, waDevMessage(dev.name))}
             target="_blank"
             rel="noopener"
             aria-label={`WhatsApp ${dev.name}`}

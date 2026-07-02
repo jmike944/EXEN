@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 import { X } from "lucide-react";
 import { COMPANY, waLink, WA_DEFAULT_MESSAGE } from "@/lib/company";
 import { Logo } from "./logo";
-import { ScheduleDialog } from "./schedule-dialog";
 
 type NavLink = { href: string; label: string };
 
@@ -15,14 +14,12 @@ const HOME_LINKS: NavLink[] = [
   { href: "/#nosotros", label: "Nosotros" },
   { href: "/#inversion", label: "Inversión" },
   { href: "/#ubicacion", label: "Ubicación" },
-  { href: "/#contacto", label: "Contacto" },
 ];
 
 const DEV_LINKS: NavLink[] = [
   { href: "/#desarrollos", label: "Desarrollos" },
   { href: "#amenidades", label: "Amenidades" },
   { href: "#ubicacion", label: "Ubicación" },
-  { href: "#contacto", label: "Contacto" },
 ];
 
 export function Nav() {
@@ -32,6 +29,9 @@ export function Nav() {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const links = variant === "dev" ? DEV_LINKS : HOME_LINKS;
+  // Single contact affordance: scroll to the contact form at the bottom of the
+  // page (this page's on desarrollos, home's otherwise).
+  const contactoHref = variant === "dev" ? "#contacto" : "/#contacto";
 
   useEffect(() => {
     const onScroll = () => setSolid(window.scrollY > 40);
@@ -62,13 +62,9 @@ export function Nav() {
             ))}
           </nav>
           <div className="nav__cta">
-            <ScheduleDialog
-              trigger={
-                <button type="button" className="btn btn--light btn--desktop">
-                  Agenda una visita
-                </button>
-              }
-            />
+            <a href={contactoHref} className="btn btn--light btn--desktop">
+              Contáctanos
+            </a>
             <button
               type="button"
               className="nav__burger"
@@ -108,6 +104,13 @@ export function Nav() {
                 {l.label}
               </Link>
             ))}
+            <a
+              href={contactoHref}
+              className="dl"
+              onClick={() => setDrawerOpen(false)}
+            >
+              Contacto
+            </a>
             <a
               className="btn btn--navy"
               style={{ marginTop: ".6rem" }}

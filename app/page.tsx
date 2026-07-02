@@ -20,7 +20,6 @@ import { CategoriesSection } from "@/components/exen/categories-section";
 import { DevelopmentsSection } from "@/components/exen/developments-section";
 import { ValueCard } from "@/components/exen/value-card";
 import { LeadForm } from "@/components/exen/lead-form";
-import { ScheduleDialog } from "@/components/exen/schedule-dialog";
 import { WhatsAppIcon } from "@/components/exen/whatsapp-icon";
 
 const VALUE_PROPS = [
@@ -307,34 +306,6 @@ export default function HomePage() {
                   >
                     Iniciar conversación
                   </a>
-                </div>
-              </div>
-              <div className="ci">
-                <span className="ico">
-                  <Target />
-                </span>
-                <div>
-                  <div className="k">Visitas</div>
-                  <ScheduleDialog
-                    trigger={
-                      <button
-                        type="button"
-                        className="v"
-                        style={{
-                          background: "none",
-                          border: 0,
-                          padding: 0,
-                          color: "#fff",
-                          fontSize: "1.05rem",
-                          fontWeight: 500,
-                          cursor: "pointer",
-                          textAlign: "left",
-                        }}
-                      >
-                        Agenda una visita guiada
-                      </button>
-                    }
-                  />
                 </div>
               </div>
             </div>

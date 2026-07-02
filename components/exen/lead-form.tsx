@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Check } from "lucide-react";
 import { DEV_OPTIONS } from "@/lib/dev-options";
-import { waLink, waDevMessage, WA_DEFAULT_MESSAGE } from "@/lib/company";
+import { waLinkForDev, waDevMessage, WA_DEFAULT_MESSAGE } from "@/lib/company";
 import { submitLead } from "@/app/actions/lead";
 import { WhatsAppIcon } from "./whatsapp-icon";
 
@@ -57,7 +57,10 @@ export function LeadForm({ preselectDev, source = "home" }: Props) {
       return;
     }
     const devObj = DEV_OPTIONS.find((d) => d.slug === values.dev);
-    const waHref = waLink(devObj ? waDevMessage(devObj.name) : WA_DEFAULT_MESSAGE);
+    const waHref = waLinkForDev(
+      values.dev,
+      devObj ? waDevMessage(devObj.name) : WA_DEFAULT_MESSAGE
+    );
     setSuccess({ name: values.firstName, waHref });
   };
 

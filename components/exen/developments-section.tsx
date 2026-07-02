@@ -39,8 +39,8 @@ export function DevelopmentsSection({
             <span className="eyebrow">Portafolio</span>
             <h2>Nuestros desarrollos</h2>
             <p>
-              Explora cada proyecto, conoce sus amenidades y agenda una visita
-              con nuestros asesores.
+              Explora cada proyecto, conoce sus amenidades y contáctanos para
+              recibir más información con nuestros asesores.
             </p>
           </Reveal>
           <Reveal delay={1} className="chips" style={{ marginBottom: ".4rem" }}>

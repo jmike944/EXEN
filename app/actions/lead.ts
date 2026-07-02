@@ -29,19 +29,7 @@ const leadSchema = z.object({
   source: z.string().optional(),
 });
 
-const scheduleSchema = z.object({
-  firstName: z.string().min(2),
-  lastName: z.string().min(2),
-  phone: z
-    .string()
-    .refine((v) => v.replace(/\D/g, "").length >= 8, "Teléfono inválido"),
-  dev: z.enum(DEV_SLUGS, { message: "Elige un desarrollo" }),
-  date: z.string().min(1, "Elige una fecha"),
-  time: z.string().optional(),
-});
-
 export type LeadInput = z.infer<typeof leadSchema>;
-export type ScheduleInput = z.infer<typeof scheduleSchema>;
 
 const GENERIC_ERROR =
   "Algo salió mal. Intenta de nuevo o escríbenos por WhatsApp.";
@@ -104,27 +92,6 @@ export async function submitLead(input: LeadInput) {
   const { dev, ...rest } = parsed.data;
   const source = `Sitio web — ${DEV_NAME[dev]}`;
   const ok = await pushToGhl({ ...rest, source }, dev);
-  if (!ok) return { ok: false as const, formError: GENERIC_ERROR };
-  return { ok: true as const };
-}
-
-export async function submitSchedule(input: ScheduleInput) {
-  const parsed = scheduleSchema.safeParse(input);
-  if (!parsed.success) {
-    return { ok: false as const, errors: parsed.error.flatten().fieldErrors };
-  }
-
-  const { dev, date, time, firstName, lastName, phone } = parsed.data;
-  const when = time ? `${date} a las ${time}` : date;
-  const source = `Sitio web — Visita a ${DEV_NAME[dev]} (${when})`;
-  const lead: GhlLead = {
-    firstName,
-    lastName,
-    phone,
-    source,
-    message: `Solicitó agendar una visita a ${DEV_NAME[dev]} el ${when}.`,
-  };
-  const ok = await pushToGhl(lead, dev);
   if (!ok) return { ok: false as const, formError: GENERIC_ERROR };
   return { ok: true as const };
 }

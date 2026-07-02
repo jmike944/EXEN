@@ -3,7 +3,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import {
-  Calendar,
   Handshake,
   Mail,
   Phone,
@@ -14,14 +13,14 @@ import {
 import { InstagramIcon } from "@/components/exen/instagram-icon";
 import { DEVS, DEV_BY_SLUG } from "@/lib/developments";
 import { CATEGORIES } from "@/lib/categories";
-import { COMPANY, waLink, waDevMessage } from "@/lib/company";
+import { COMPANY, waLinkForDev, waDevMessage } from "@/lib/company";
 import { Reveal } from "@/components/exen/reveal";
 import { FactsBar } from "@/components/exen/facts-bar";
 import { AmenityIcon } from "@/lib/amenity-icon";
 import { ValueCard } from "@/components/exen/value-card";
 import { DevCard } from "@/components/exen/dev-card";
 import { LeadForm } from "@/components/exen/lead-form";
-import { ScheduleDialog } from "@/components/exen/schedule-dialog";
+import { Gallery } from "@/components/exen/gallery";
 import { WhatsAppIcon } from "@/components/exen/whatsapp-icon";
 
 export function generateStaticParams() {
@@ -92,17 +91,12 @@ export default async function DevPage(
             {dev.tagline}. {dev.short}
           </p>
           <div className="hero__actions">
-            <ScheduleDialog
-              preselectDev={dev.slug}
-              trigger={
-                <button type="button" className="btn btn--light btn--lg">
-                  Agenda una visita
-                </button>
-              }
-            />
+            <a href="#contacto" className="btn btn--light btn--lg">
+              Contáctanos
+            </a>
             <a
               className="btn btn--wa btn--lg"
-              href={waLink(waMsg)}
+              href={waLinkForDev(dev.slug, waMsg)}
               target="_blank"
               rel="noopener"
             >
@@ -149,14 +143,9 @@ export default async function DevPage(
               ))}
             </div>
             <div className="hero__actions" style={{ marginTop: "1.8rem" }}>
-              <ScheduleDialog
-                preselectDev={dev.slug}
-                trigger={
-                  <button type="button" className="btn btn--primary">
-                    Quiero más información
-                  </button>
-                }
-              />
+              <a href="#contacto" className="btn btn--primary">
+                Quiero más información
+              </a>
               <a
                 className="link-arrow"
                 style={{ alignSelf: "center" }}
@@ -233,27 +222,8 @@ export default async function DevPage(
               <h2>Conoce el proyecto</h2>
               <p>Renders y vistas del desarrollo.</p>
             </Reveal>
-            <Reveal
-              delay={1}
-              className="gallery"
-              style={{ marginTop: "clamp(28px,3.5vw,48px)" }}
-            >
-              {dev.gallery.map((src, i) => {
-                const cls = ["gallery__slot"];
-                if (i === 0) cls.push("g-wide", "g-tall");
-                if (i === 3) cls.push("g-wide");
-                return (
-                  <div key={src} className={cls.join(" ")}>
-                    <Image
-                      src={src}
-                      alt={`${dev.name} — galería ${i + 1}`}
-                      fill
-                      sizes="(max-width: 620px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                      style={{ objectFit: "cover" }}
-                    />
-                  </div>
-                );
-              })}
+            <Reveal delay={1} style={{ marginTop: "clamp(28px,3.5vw,48px)" }}>
+              <Gallery images={dev.gallery} devName={dev.name} />
             </Reveal>
           </div>
         </section>
@@ -379,42 +349,13 @@ export default async function DevPage(
               </div>
               <div className="ci">
                 <span className="ico">
-                  <Calendar />
-                </span>
-                <div>
-                  <div className="k">Visitas</div>
-                  <ScheduleDialog
-                    preselectDev={dev.slug}
-                    trigger={
-                      <button
-                        type="button"
-                        className="v"
-                        style={{
-                          background: "none",
-                          border: 0,
-                          padding: 0,
-                          color: "#fff",
-                          fontSize: "1.05rem",
-                          fontWeight: 500,
-                          cursor: "pointer",
-                          textAlign: "left",
-                        }}
-                      >
-                        Agenda una visita guiada
-                      </button>
-                    }
-                  />
-                </div>
-              </div>
-              <div className="ci">
-                <span className="ico">
                   <WhatsAppIcon />
                 </span>
                 <div>
                   <div className="k">WhatsApp</div>
                   <a
                     className="v"
-                    href={waLink(waMsg)}
+                    href={waLinkForDev(dev.slug, waMsg)}
                     target="_blank"
                     rel="noopener"
                   >
