@@ -22,11 +22,12 @@ import { WhatsAppIcon } from "./whatsapp-icon";
 const SLOTS = ["10:00", "11:30", "13:00", "16:00", "17:30", "19:00"] as const;
 
 const schema = z.object({
-  name: z.string().min(2, "Ingresa tu nombre"),
+  firstName: z.string().min(2, "Ingresa tu nombre"),
+  lastName: z.string().min(2, "Ingresa tu apellido"),
   phone: z
     .string()
     .refine((v) => v.replace(/\D/g, "").length >= 8, "Teléfono inválido"),
-  dev: z.string().optional(),
+  dev: z.string().min(1, "Elige un desarrollo"),
   date: z.string().min(1, "Elige una fecha"),
 });
 type FormValues = z.infer<typeof schema>;
@@ -43,6 +44,7 @@ export function ScheduleDialog({
   const [success, setSuccess] = useState<{ name: string; wa: string } | null>(
     null
   );
+  const [formError, setFormError] = useState<string | null>(null);
 
   const today = new Date().toISOString().split("T")[0];
 
@@ -57,14 +59,19 @@ export function ScheduleDialog({
   });
 
   const onSubmit = async (values: FormValues) => {
+    setFormError(null);
     const res = await submitSchedule({ ...values, time: slot });
-    if (!res.ok) return;
+    if (!res.ok) {
+      if (res.formError) setFormError(res.formError);
+      return;
+    }
     const devName =
       DEV_OPTIONS.find((d) => d.slug === values.dev)?.name ??
       "uno de los desarrollos";
-    const first = values.name.split(" ")[0] ?? "";
+    const first = values.firstName;
+    const fullName = `${values.firstName} ${values.lastName}`.trim();
     const wa = waLink(
-      `Hola EXEN, quiero agendar una visita a ${devName} el ${values.date} a las ${slot}. Mi nombre es ${values.name}.`
+      `Hola EXEN, quiero agendar una visita a ${devName} el ${values.date} a las ${slot}. Mi nombre es ${fullName}.`
     );
     setSuccess({ name: first, wa });
   };
@@ -74,6 +81,7 @@ export function ScheduleDialog({
     if (!next) {
       setTimeout(() => {
         setSuccess(null);
+        setFormError(null);
         reset();
         setSlot(SLOTS[0]);
       }, 200);
@@ -101,18 +109,34 @@ export function ScheduleDialog({
               className="px-7 pb-7 pt-3"
               noValidate
             >
-              <div className={`field${errors.name ? " has-error" : ""}`}>
-                <label>
-                  Nombre completo <span className="req">*</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Tu nombre"
-                  autoComplete="name"
-                  {...register("name")}
-                />
-                <div className="err">
-                  {errors.name?.message ?? "Ingresa tu nombre"}
+              <div className="field-row2">
+                <div className={`field${errors.firstName ? " has-error" : ""}`}>
+                  <label>
+                    Nombre <span className="req">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Tu nombre"
+                    autoComplete="given-name"
+                    {...register("firstName")}
+                  />
+                  <div className="err">
+                    {errors.firstName?.message ?? "Ingresa tu nombre"}
+                  </div>
+                </div>
+                <div className={`field${errors.lastName ? " has-error" : ""}`}>
+                  <label>
+                    Apellido <span className="req">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Tu apellido"
+                    autoComplete="family-name"
+                    {...register("lastName")}
+                  />
+                  <div className="err">
+                    {errors.lastName?.message ?? "Ingresa tu apellido"}
+                  </div>
                 </div>
               </div>
               <div className="field-row2">
@@ -165,6 +189,11 @@ export function ScheduleDialog({
                   ))}
                 </div>
               </div>
+              {formError ? (
+                <div className="form-error" role="alert" style={{ marginTop: ".4rem" }}>
+                  {formError}
+                </div>
+              ) : null}
               <button
                 type="submit"
                 disabled={isSubmitting}

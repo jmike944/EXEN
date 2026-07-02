@@ -11,12 +11,13 @@ import { submitLead } from "@/app/actions/lead";
 import { WhatsAppIcon } from "./whatsapp-icon";
 
 const schema = z.object({
-  name: z.string().min(2, "Ingresa tu nombre"),
+  firstName: z.string().min(2, "Ingresa tu nombre"),
+  lastName: z.string().min(2, "Ingresa tu apellido"),
   phone: z
     .string()
     .refine((v) => v.replace(/\D/g, "").length >= 8, "Teléfono inválido"),
   email: z.string().email("Correo inválido"),
-  dev: z.string().optional(),
+  dev: z.string().min(1, "Elige un desarrollo"),
   message: z.string().optional(),
 });
 
@@ -31,6 +32,7 @@ export function LeadForm({ preselectDev, source = "home" }: Props) {
   const [success, setSuccess] = useState<{ name: string; waHref: string } | null>(
     null
   );
+  const [formError, setFormError] = useState<string | null>(null);
 
   const {
     register,
@@ -43,15 +45,20 @@ export function LeadForm({ preselectDev, source = "home" }: Props) {
   });
 
   const onSubmit = async (values: FormValues) => {
+    setFormError(null);
     const res = await submitLead({ ...values, source });
     if (!res.ok) {
+      if (res.formError) {
+        setFormError(res.formError);
+        return;
+      }
       const first = Object.keys(res.errors ?? {})[0] as keyof FormValues | undefined;
       if (first) setFocus(first);
       return;
     }
     const devObj = DEV_OPTIONS.find((d) => d.slug === values.dev);
     const waHref = waLink(devObj ? waDevMessage(devObj.name) : WA_DEFAULT_MESSAGE);
-    setSuccess({ name: values.name.split(" ")[0] ?? "", waHref });
+    setSuccess({ name: values.firstName, waHref });
   };
 
   if (success) {
@@ -78,12 +85,35 @@ export function LeadForm({ preselectDev, source = "home" }: Props) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
-      <div className={`field${errors.name ? " has-error" : ""}`}>
-        <label>
-          Nombre completo <span className="req">*</span>
-        </label>
-        <input type="text" placeholder="Tu nombre" autoComplete="name" {...register("name")} />
-        <div className="err">{errors.name?.message ?? "Ingresa tu nombre"}</div>
+      <div className="field-row2">
+        <div className={`field${errors.firstName ? " has-error" : ""}`}>
+          <label>
+            Nombre <span className="req">*</span>
+          </label>
+          <input
+            type="text"
+            placeholder="Tu nombre"
+            autoComplete="given-name"
+            {...register("firstName")}
+          />
+          <div className="err">
+            {errors.firstName?.message ?? "Ingresa tu nombre"}
+          </div>
+        </div>
+        <div className={`field${errors.lastName ? " has-error" : ""}`}>
+          <label>
+            Apellido <span className="req">*</span>
+          </label>
+          <input
+            type="text"
+            placeholder="Tu apellido"
+            autoComplete="family-name"
+            {...register("lastName")}
+          />
+          <div className="err">
+            {errors.lastName?.message ?? "Ingresa tu apellido"}
+          </div>
+        </div>
       </div>
       <div className="field-row2">
         <div className={`field${errors.phone ? " has-error" : ""}`}>
@@ -113,8 +143,10 @@ export function LeadForm({ preselectDev, source = "home" }: Props) {
           <div className="err">{errors.email?.message ?? "Correo inválido"}</div>
         </div>
       </div>
-      <div className="field">
-        <label>Desarrollo de interés</label>
+      <div className={`field${errors.dev ? " has-error" : ""}`}>
+        <label>
+          Desarrollo de interés <span className="req">*</span>
+        </label>
         <select {...register("dev")}>
           <option value="">— Selecciona —</option>
           {DEV_OPTIONS.map((d) => (
@@ -122,8 +154,8 @@ export function LeadForm({ preselectDev, source = "home" }: Props) {
               {d.name}
             </option>
           ))}
-          <option value="otro">Aún no lo decido</option>
         </select>
+        <div className="err">{errors.dev?.message ?? "Elige un desarrollo"}</div>
       </div>
       <div className="field">
         <label>Mensaje</label>
@@ -132,6 +164,11 @@ export function LeadForm({ preselectDev, source = "home" }: Props) {
           {...register("message")}
         />
       </div>
+      {formError ? (
+        <div className="form-error" role="alert">
+          {formError}
+        </div>
+      ) : null}
       <button
         type="submit"
         disabled={isSubmitting}

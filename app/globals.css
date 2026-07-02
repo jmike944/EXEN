@@ -1495,6 +1495,19 @@
   text-align: center;
 }
 
+.form-error {
+  font-size: 0.84rem;
+  color: #d1495b;
+  background: #fdf3f4;
+  border: 1px solid color-mix(in srgb, #d1495b 30%, transparent);
+  border-radius: 0.6rem;
+  padding: 0.7rem 0.9rem;
+  margin-top: 0.9rem;
+}
+.dark .form-error {
+  background: color-mix(in srgb, #d1495b 12%, transparent);
+}
+
 .form-success {
   display: flex;
   flex-direction: column;
