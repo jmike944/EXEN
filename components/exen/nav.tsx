@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { X } from "lucide-react";
 import { COMPANY, waLink, WA_DEFAULT_MESSAGE } from "@/lib/company";
 import { Logo } from "./logo";
+import { WhatsAppIcon } from "./whatsapp-icon";
 
 type NavLink = { href: string; label: string };
 
@@ -62,6 +63,15 @@ export function Nav() {
             ))}
           </nav>
           <div className="nav__cta">
+            <a
+              href={waLink(WA_DEFAULT_MESSAGE)}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Escríbenos por WhatsApp"
+              className="nav__wa btn--desktop"
+            >
+              <WhatsAppIcon />
+            </a>
             <a href={contactoHref} className="btn btn--light btn--desktop">
               Contáctanos
             </a>
@@ -112,14 +122,14 @@ export function Nav() {
               Contacto
             </a>
             <a
-              className="btn btn--navy"
+              className="btn btn--wa"
               style={{ marginTop: ".6rem" }}
               href={waLink(WA_DEFAULT_MESSAGE)}
               target="_blank"
               rel="noopener"
               onClick={() => setDrawerOpen(false)}
             >
-              Escríbenos por WhatsApp
+              Escríbenos por WhatsApp <WhatsAppIcon />
             </a>
           </div>
         </div>

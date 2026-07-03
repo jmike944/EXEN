@@ -254,7 +254,7 @@
   filter: brightness(0) invert(1);
 }
 .dark .nav.is-solid {
-  background: var(--c-bg);
+  background: color-mix(in srgb, var(--c-bg) 85%, transparent);
   border-bottom-color: var(--c-line);
 }
 .dark .nav.is-solid .nav__brand .wm {
@@ -619,6 +619,40 @@
   gap: 0.8rem;
   margin-left: auto;
 }
+/* WhatsApp button in the header (round green, like Tera). */
+.nav__wa {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  flex: 0 0 auto;
+  border-radius: var(--btn-radius);
+  /* Transparent (glass) over the hero; turns solid green once the nav is
+     scrolled (.is-solid), matching how the Contáctanos button behaves. */
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(6px);
+  transition: transform 0.2s ease, box-shadow 0.2s ease,
+    background 0.2s ease, border-color 0.2s ease;
+}
+.nav__wa:hover {
+  box-shadow: var(--shadow);
+  transform: translateY(-1px);
+}
+.nav__wa:active {
+  transform: translateY(0);
+}
+.nav__wa svg {
+  width: 20px;
+  height: 20px;
+}
+.nav.is-solid .nav__wa {
+  background: #25d366;
+  border-color: transparent;
+  box-shadow: var(--shadow-sm);
+}
 /* ---------- Theme segmented control (in floating cluster) ---------- */
 .theme-seg {
   display: inline-flex;
@@ -702,7 +736,9 @@
 }
 
 .nav.is-solid {
-  background: var(--c-bg);
+  background: color-mix(in srgb, var(--c-bg) 88%, transparent);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
   border-bottom-color: var(--c-line);
   box-shadow: 0 4px 20px -16px rgba(12, 27, 43, 0.4);
 }
@@ -1922,7 +1958,9 @@
   right: 0;
   height: 100%;
   width: min(80vw, 340px);
-  background: var(--c-bg);
+  background: color-mix(in srgb, var(--c-bg) 92%, transparent);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
   padding: 28px 24px;
   display: flex;
   flex-direction: column;
